@@ -17,7 +17,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-;
+
 
 public class HomeFragmentRecyclerViewAdapter extends RecyclerView.Adapter<BookViewHolder> {
     private final String Tag = "HomeRecyclerViewAdapter";
