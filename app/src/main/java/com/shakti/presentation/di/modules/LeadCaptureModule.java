@@ -1,8 +1,8 @@
 package com.shakti.presentation.di.modules;
 
 
-import com.shakti.domain.usecases.BaseUseCase;
-import com.shakti.domain.usecases.GetBooksGridResults;
+import com.shakti.domain.interactor.BaseUseCase;
+import com.shakti.domain.interactor.GetFlights;
 import com.shakti.presentation.di.PerActivity;
 
 import javax.inject.Named;
@@ -18,9 +18,9 @@ public class LeadCaptureModule {
 
     @Provides
     @PerActivity
-    @Named("saveRecentSearches")
-    BaseUseCase provideSaveRecentSearchesBaseUseCase(SaveRecentSearches saveRecentSearches) {
-        return saveRecentSearches;
+    @Named("getFlightModels")
+    BaseUseCase provideSaveRecentSearchesBaseUseCase(GetFlights getFlights) {
+        return getFlights;
     }
 
 

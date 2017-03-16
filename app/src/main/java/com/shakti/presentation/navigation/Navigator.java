@@ -10,8 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.shakti.presentation.leadCapturePage.home.view.activity.BookDetailActivity;
-import com.shakti.presentation.leadCapturePage.home.view.activity.ListAllActivity;
+import com.shakti.presentation.appviewpresenter.home.view.activity.HomeActivity;
 import com.shakti.presentation.utils.Util;
 
 import javax.inject.Inject;
@@ -29,7 +28,7 @@ public class Navigator {
     }
 
     public void startBookDetailActivity(AppCompatActivity from, Bundle bundle) {
-        Intent intent = new Intent(from, BookDetailActivity.class);
+        Intent intent = new Intent(from, HomeActivity.class);
         intent.putExtra(Util.bookDetailBundle, bundle);
         from.startActivity(intent);
 
@@ -41,12 +40,7 @@ public class Navigator {
 
     }
 
-    public void startListAllActivity(AppCompatActivity from, Bundle bundle) {
-        Intent intent = new Intent(from, ListAllActivity.class);
-        intent.putExtra(Util.fragmentTitle, bundle);
-        from.startActivity(intent);
 
-    }
 
     public void addFragment(AppCompatActivity activity, int containerViewId, Fragment fragment) {
 

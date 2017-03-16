@@ -116,7 +116,7 @@ public class Flight {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class Flight {\n");
+        sb.append("class FlightModel {\n");
 
         sb.append("  originCode: ").append(originCode).append("\n");
         sb.append("  destinationCode: ").append(destinationCode).append("\n");

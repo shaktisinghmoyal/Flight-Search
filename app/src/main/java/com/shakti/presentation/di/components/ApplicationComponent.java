@@ -7,7 +7,7 @@ import com.shakti.domain.executor.PostExecutionThread;
 import com.shakti.domain.executor.ThreadExecutor;
 import com.shakti.domain.repository.IHomeRepository;
 import com.shakti.presentation.di.modules.ApplicationModule;
-import com.shakti.presentation.leadCapturePage.base.view.activity.BaseActivity;
+import com.shakti.presentation.appviewpresenter.base.view.activity.BaseActivity;
 
 import javax.inject.Singleton;
 

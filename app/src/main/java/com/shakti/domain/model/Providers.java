@@ -75,7 +75,7 @@ public class Providers {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class Providers {\n");
+        sb.append("class ProvidersModel {\n");
 
         sb.append("  _1: ").append(_1).append("\n");
         sb.append("  _2: ").append(_2).append("\n");

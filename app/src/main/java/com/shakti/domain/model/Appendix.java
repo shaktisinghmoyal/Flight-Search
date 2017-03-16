@@ -66,7 +66,7 @@ public class Appendix {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class Appendix {\n");
+        sb.append("class AppendixModel {\n");
 
         sb.append("  airlines: ").append(airlines).append("\n");
         sb.append("  airports: ").append(airports).append("\n");

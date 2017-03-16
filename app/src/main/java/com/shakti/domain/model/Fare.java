@@ -51,7 +51,7 @@ public class Fare {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class Fare {\n");
+        sb.append("class FareModel {\n");
 
         sb.append("  providerId: ").append(providerId).append("\n");
         sb.append("  fare: ").append(fare).append("\n");

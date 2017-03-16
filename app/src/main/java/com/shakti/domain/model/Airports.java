@@ -50,7 +50,7 @@ public class Airports {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class Airports {\n");
+        sb.append("class AirportsModel {\n");
 
         sb.append("  dEL: ").append(dEL).append("\n");
         sb.append("  bOM: ").append(bOM).append("\n");

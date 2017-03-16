@@ -87,7 +87,7 @@ public class Airlines {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class Airlines {\n");
+        sb.append("class AirlinesModel {\n");
 
         sb.append("  sG: ").append(sG).append("\n");
         sb.append("  aI: ").append(aI).append("\n");

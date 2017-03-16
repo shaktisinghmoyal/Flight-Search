@@ -3,7 +3,7 @@ package com.shakti.presentation.di.components;
 import com.shakti.presentation.di.PerActivity;
 import com.shakti.presentation.di.modules.ActivityModule;
 import com.shakti.presentation.di.modules.LeadCaptureModule;
-import com.shakti.presentation.leadCapturePage.base.view.activity.MainActivity;
+import com.shakti.presentation.appviewpresenter.base.view.activity.MainActivity;
 
 import dagger.Component;
 
