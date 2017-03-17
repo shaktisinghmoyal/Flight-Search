@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.shakti.presentation.appviewpresenter.home.view.activity.HomeActivity;
+import com.shakti.presentation.appviewpresenter.home.view.activity.FlightSearchActivity;
 import com.shakti.presentation.utils.Util;
 
 import javax.inject.Inject;
@@ -28,7 +28,7 @@ public class Navigator {
     }
 
     public void startBookDetailActivity(AppCompatActivity from, Bundle bundle) {
-        Intent intent = new Intent(from, HomeActivity.class);
+        Intent intent = new Intent(from, FlightSearchActivity.class);
         intent.putExtra(Util.bookDetailBundle, bundle);
         from.startActivity(intent);
 

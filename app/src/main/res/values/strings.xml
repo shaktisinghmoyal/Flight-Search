@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">FlightSearch</string>
+
+    <string name="booking_options">Booking Options</string>
+    <string name="sort_options">Sorting Options </string>
+
+    <string name="cheap">Cheap</string>
+    <string name="take_off_time">Take Off</string>
+    <string name="landing_time">Landing Time</string>
 </resources>

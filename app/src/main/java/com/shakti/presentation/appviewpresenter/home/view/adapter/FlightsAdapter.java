@@ -19,13 +19,13 @@ import javax.inject.Inject;
 
 
 
-public class HomeFragmentRecyclerViewAdapter extends RecyclerView.Adapter<BookViewHolder> {
+public class FlightsAdapter extends RecyclerView.Adapter<BookViewHolder> {
     private final String Tag = "HomeRecyclerViewAdapter";
     private List<BookModel> bookModelList;
     private OnItemClickListener onItemClickListener;
     private AppCompatActivity appCompatActivity;
     @Inject
-    public HomeFragmentRecyclerViewAdapter(AppCompatActivity activity) {
+    public FlightsAdapter(AppCompatActivity activity) {
         this.bookModelList = new ArrayList<BookModel>();
         appCompatActivity = activity;
     }

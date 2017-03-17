@@ -22,9 +22,9 @@ import com.shakti.presentation.utils.Util;
 
 import javax.inject.Inject;
 
-public class HomeActivity extends BaseActivity implements BookActivityView, HasComponent<BookDetailComponent> {
+public class FlightSearchActivity extends BaseActivity implements BookActivityView, HasComponent<BookDetailComponent> {
     public static Activity activity;
-    private final String Tag = "HomeActivity";
+    private final String Tag = "FlightSearchActivity";
     @Inject
     BookActivityPresenter bookActivityPresenter;
     private Bundle bookDetailBundle;
