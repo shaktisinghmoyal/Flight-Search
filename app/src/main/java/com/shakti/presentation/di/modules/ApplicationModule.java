@@ -4,14 +4,14 @@ package com.shakti.presentation.di.modules;
 import android.content.Context;
 
 import com.shakti.data.executor.JobExecutor;
-import com.shakti.data.repository.HomeRepository;
+import com.shakti.data.repository.FlightSearchRepository;
 
 import com.shakti.domain.executor.PostExecutionThread;
 import com.shakti.domain.executor.ThreadExecutor;
 
-import com.shakti.domain.repository.IHomeRepository;
+import com.shakti.domain.repository.IFlightSearchRepository;
 
-import com.shakti.presentation.BookShelfApplication;
+import com.shakti.presentation.FlightSearchApplication;
 import com.shakti.presentation.UIThread;
 
 import javax.inject.Singleton;
@@ -24,9 +24,9 @@ import dagger.Provides;
  */
 @Module
 public class ApplicationModule {
-    private final BookShelfApplication application;
+    private final FlightSearchApplication application;
 
-    public ApplicationModule(BookShelfApplication application) {
+    public ApplicationModule(FlightSearchApplication application) {
         this.application = application;
     }
 
@@ -50,11 +50,9 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    IHomeRepository provideIHomeRepository(HomeRepository homeRepository) {
-        return homeRepository;
+    IFlightSearchRepository provideIFlightSearchRepository(FlightSearchRepository flightSearchRepository) {
+        return flightSearchRepository;
     }
-
-
 
 
 }

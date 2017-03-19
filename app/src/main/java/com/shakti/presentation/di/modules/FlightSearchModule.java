@@ -11,15 +11,15 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class LeadCaptureModule {
+public class FlightSearchModule {
 
-    public LeadCaptureModule() {
+    public FlightSearchModule() {
     }
 
     @Provides
     @PerActivity
-    @Named("getFlightModels")
-    BaseUseCase provideSaveRecentSearchesBaseUseCase(GetFlights getFlights) {
+    @Named("getFlights")
+    BaseUseCase provideGetFlightUseCase(GetFlights getFlights) {
         return getFlights;
     }
 

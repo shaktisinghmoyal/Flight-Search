@@ -29,50 +29,21 @@ public class Navigator {
 
     public void startBookDetailActivity(AppCompatActivity from, Bundle bundle) {
         Intent intent = new Intent(from, FlightSearchActivity.class);
-        intent.putExtra(Util.bookDetailBundle, bundle);
         from.startActivity(intent);
 
     }
 
     public void startAnotherActivity(AppCompatActivity from, Intent intent) {
-        //popEveryFragment( from);
-        from.startActivityForResult(intent, Util.REQUEST_CODE_ADD_BOOK_ACTIVITY);
+
 
     }
 
 
 
-    public void addFragment(AppCompatActivity activity, int containerViewId, Fragment fragment) {
 
-        FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
-        Log.e(Tag, "" + " simply addFragment");
-        fragmentTransaction.replace(containerViewId, fragment);
-        fragmentTransaction.commit();
-        activity.getSupportFragmentManager().executePendingTransactions();
-    }
-
-    public void addFragment(AppCompatActivity activity, int containerViewId, Fragment fragment, String tag) {
-        FragmentManager manager = activity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-
-        if (tag.equals(Util.ENTRY)) {
-            Log.e(Tag, "" + "add first Fragment  ");
-            fragmentTransaction.replace(containerViewId, fragment, tag);
-        } else {
-            Log.e(Tag, "" + "addFragment  ");
-
-            fragmentTransaction.replace(containerViewId, fragment, tag).addToBackStack(tag);
-
-        }
-
-        fragmentTransaction.commit();
-        activity.getSupportFragmentManager().executePendingTransactions();
-
-    }
 
     public void openAsRoot(AppCompatActivity activity, int containerViewId, Fragment fragment, String tag) {
         popEveryFragment(activity);
-        addFragment(activity, containerViewId, fragment, tag);
     }
 
     public void openAsMainRoot(AppCompatActivity activity) {

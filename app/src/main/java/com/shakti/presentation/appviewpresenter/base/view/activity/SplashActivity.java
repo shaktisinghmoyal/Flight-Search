@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.shakti.R;
+import com.shakti.presentation.appviewpresenter.home.view.activity.FlightSearchActivity;
+
 
 public class SplashActivity extends Activity {
 
@@ -30,7 +32,7 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent mainIntent = new Intent(SplashActivity.this, FlightSearchActivity.class);
                 startActivity(mainIntent);
                 finish();
             }

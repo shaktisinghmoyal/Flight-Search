@@ -22,13 +22,6 @@ import rx.subscriptions.Subscriptions;
 public abstract class BaseUseCase {
     final ThreadExecutor threadExecutor;
     final PostExecutionThread postExecutionThread;
-    private final String Tag = "BaseUseCase";
-    int id;
-    String username;
-    String password;
-    String fullName;
-    String recentSearchString;
-    Flights flights;
     Subscription subscription = Subscriptions.empty();
     private Subscriber useCaseSubscriber;
 
@@ -56,45 +49,6 @@ public abstract class BaseUseCase {
         execute();
     }
 
-    @SuppressWarnings("unchecked")
-    public void execute(int id, Subscriber UseCaseSubscriber) {
-        useCaseSubscriber = UseCaseSubscriber;
-        this.id = id;
-        execute();
-    }
-
-    @SuppressWarnings("unchecked")
-    public void execute(Flights flights, Subscriber UseCaseSubscriber) {
-        useCaseSubscriber = UseCaseSubscriber;
-        this.flights = flights;
-        execute();
-    }
-
-
-    @SuppressWarnings("unchecked")
-    public void execute(String string, Subscriber UseCaseSubscriber) {
-        useCaseSubscriber = UseCaseSubscriber;
-        this.username = string;
-        this.recentSearchString = string;
-        execute();
-    }
-
-    @SuppressWarnings("unchecked")
-    public void execute(String username, String password, Subscriber UseCaseSubscriber) {
-        this.username = username;
-        this.password = password;
-        useCaseSubscriber = UseCaseSubscriber;
-        execute();
-    }
-
-    @SuppressWarnings("unchecked")
-    public void execute(String username, String password, String fullName, Subscriber UseCaseSubscriber) {
-        this.username = username;
-        this.password = password;
-        this.fullName = fullName;
-        useCaseSubscriber = UseCaseSubscriber;
-        execute();
-    }
 
 
     @SuppressWarnings("unchecked")

@@ -4,8 +4,11 @@ apply plugin: 'com.neenbedankt.android-apt'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
+    dataBinding {
+        enabled = true
+    }
     defaultConfig {
-        applicationId "talentica.com.flightsearch"
+        applicationId "com.shakti"
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
@@ -29,6 +32,8 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.squareup.okhttp:logging-interceptor:2.7.5'
+    compile 'com.android.support:cardview-v7:23.2.1'
     compile 'com.android.support:recyclerview-v7:23.2.1'
     compile 'com.google.dagger:dagger:2.0'
     apt 'com.google.dagger:dagger-compiler:2.0'

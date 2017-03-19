@@ -7,7 +7,7 @@ import java.util.List;
 
 import rx.Observable;
 
-public interface IHomeRepository {
+public interface IFlightSearchRepository {
 
 
     Observable<Flights> getFlights();

@@ -9,11 +9,15 @@
             type="FlightModel"/>
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/single_flight_detail"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/single_flight_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
 
@@ -27,23 +31,60 @@
                 android:layout_height="match_parent"
                 android:layout_weight="4"/>
 
-
-            <TextView
-                android:id="@+id/take_off_time"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"/>
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/take_off_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="edfvde">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/total_hr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                   >
+
+                </TextView>
+
+            </LinearLayout>
+
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:src="@drawable/right_arrow"/>
 
-            <TextView
-                android:id="@+id/landing_time"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"/>
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/landing_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="edfvde">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/travel_class"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="edfvde">
+
+                </TextView>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/fare"
@@ -61,4 +102,5 @@
 
         </View>
     </LinearLayout>
+    </android.support.v7.widget.CardView>
 </layout>

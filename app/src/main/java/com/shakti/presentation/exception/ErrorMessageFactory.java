@@ -8,6 +8,7 @@ import com.shakti.data.exception.FlightsNotFoundException;
 import com.shakti.data.exception.NetworkConnectionException;
 
 
+
 /**
  * Factory used to create error messages from an Exception as a condition.
  */

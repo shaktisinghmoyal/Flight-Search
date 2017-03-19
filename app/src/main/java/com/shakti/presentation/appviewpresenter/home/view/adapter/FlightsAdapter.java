@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.talentica.presentation.leadCapturePage.home.model.BookModel;
-import com.talentica.presentation.utils.BookViewHolder;
+import com.shakti.presentation.appviewpresenter.home.model.FlightModel;
+import com.shakti.presentation.utils.FlightViewHolder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,54 +17,49 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-
-
-public class FlightsAdapter extends RecyclerView.Adapter<BookViewHolder> {
-    private final String Tag = "HomeRecyclerViewAdapter";
-    private List<BookModel> bookModelList;
-    private OnItemClickListener onItemClickListener;
+public class FlightsAdapter extends RecyclerView.Adapter<FlightViewHolder>  {
+    private List<FlightModel> flightModelList;
+    private OnItemClickListener onFlightClickListener;
     private AppCompatActivity appCompatActivity;
+
+
     @Inject
     public FlightsAdapter(AppCompatActivity activity) {
-        this.bookModelList = new ArrayList<BookModel>();
+        this.flightModelList = new ArrayList<FlightModel>();
         appCompatActivity = activity;
     }
 
     @Override
-    public BookViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        Log.e(Tag, "onCreateViewHolder " + i);
-        return BookViewHolder.create(LayoutInflater.from(viewGroup.getContext()), viewGroup, appCompatActivity);
+    public FlightViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        return FlightViewHolder.create(LayoutInflater.from(viewGroup.getContext()), viewGroup, appCompatActivity);
 
     }
 
     @Override
-    public void onBindViewHolder(BookViewHolder bookViewHolder, final int position) {
-        //Log.e(Tag,"onBindViewHolder ");
-        bookViewHolder.bindTo(bookModelList.get(position));
-        bookViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(FlightViewHolder flightViewHolder, final int position) {
+        flightViewHolder.bindTo(flightModelList.get(position));
+        flightViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //  Log.e(Tag,"onBindViewHolder onClick");
-                if (onItemClickListener != null) {
-                    Log.e(Tag, "onBindViewHolder onItemClickListener != null");
-                    onItemClickListener.onBookItemClicked(bookModelList.get(position));
+                if (onFlightClickListener != null) {
+                    onFlightClickListener.onFlightClicked(flightModelList.get(position));
                 }
             }
         });
 
     }
 
-    public void setUsersCollection(Collection<BookModel> usersCollection) {
-        validateUsersCollection(usersCollection);
-        bookModelList.addAll(usersCollection);
+    public void setFlights(Collection<FlightModel> flightModelCollection) {
+        validateUsersCollection(flightModelCollection);
+        flightModelList.addAll(flightModelCollection);
         notifyDataSetChanged();
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+        this.onFlightClickListener = onItemClickListener;
     }
 
-    private void validateUsersCollection(Collection<BookModel> usersCollection) {
+    private void validateUsersCollection(Collection<FlightModel> usersCollection) {
         if (usersCollection == null) {
             throw new IllegalArgumentException("The list cannot be null");
         }
@@ -72,12 +67,14 @@ public class FlightsAdapter extends RecyclerView.Adapter<BookViewHolder> {
 
     @Override
     public int getItemCount() {
-        return (null != bookModelList ? bookModelList.size() : 0);
+        return (null != flightModelList ? flightModelList.size() : 0);
     }
 
+
     public interface OnItemClickListener {
-        void onBookItemClicked(BookModel bookModel);
+        void onFlightClicked(FlightModel flightModel);
     }
+
 
 
 }

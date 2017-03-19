@@ -1,4 +1,4 @@
-package data.entity.mapper.flights.networking;
+package com.shakti.data.networking;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -7,8 +7,8 @@ import android.net.NetworkInfo;
 import javax.inject.Inject;
 
 
-public class BaseClassForMethods {
-    private final String Tag = "BaseClassForMethods";
+public class BaseMethodsForApiRestCalls {
+    private final String Tag = "BaseMethodsForApiRestCalls";
 
     @Inject
     Context context;

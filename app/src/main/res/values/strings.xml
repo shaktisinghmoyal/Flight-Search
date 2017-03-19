@@ -2,9 +2,16 @@
     <string name="app_name">FlightSearch</string>
 
     <string name="booking_options">Booking Options</string>
-    <string name="sort_options">Sorting Options </string>
 
-    <string name="cheap">Cheap</string>
-    <string name="take_off_time">Take Off</string>
-    <string name="landing_time">Landing Time</string>
+
+    <string name="cheap">CHEAP</string>
+    <string name="take_off_time">TAKE-OFF</string>
+    <string name="landing">LANDING</string>
+
+    <string name="try_again">Try Again</string>
+
+    //Exception messages
+    <string name="exception_message_generic">There was an application error</string>
+    <string name="exception_message_no_connection">There is no internet connection</string>
+    <string name="exception_message_books_not_found">Cannot retrieve user data. Check your internet connection</string>
 </resources>

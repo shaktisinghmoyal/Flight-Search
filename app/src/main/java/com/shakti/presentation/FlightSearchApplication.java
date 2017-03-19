@@ -7,10 +7,10 @@ import com.shakti.presentation.di.components.ApplicationComponent;
 import com.shakti.presentation.di.components.DaggerApplicationComponent;
 import com.shakti.presentation.di.modules.ApplicationModule;
 
-public class BookShelfApplication extends Application {
+public class FlightSearchApplication extends Application {
 
     private static ApplicationComponent applicationComponent;
-    private final String Tag = "BookShelfApplication";
+    private final String Tag = "FlightSearchApplication";
 
     public static Context getAppContext() {
         return applicationComponent.context();

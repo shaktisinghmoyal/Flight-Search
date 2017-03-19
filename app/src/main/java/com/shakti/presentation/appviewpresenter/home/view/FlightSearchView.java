@@ -1,23 +1,46 @@
 package com.shakti.presentation.appviewpresenter.home.view;
 
 
+import android.content.Context;
+
+import com.shakti.presentation.appviewpresenter.home.model.FlightModel;
+import com.shakti.presentation.appviewpresenter.home.model.FlightsModel;
+
 public interface FlightSearchView {
-    void showLoadingView();
+    void showMainLayout();
 
-    void hideLoadingView();
+    void hideMainLayout();
 
-    void showRetryView();
+    void showLoadingViewForFlights();
 
-    void hideRetryView();
+    void hideLoadingViewForFlights();
 
-    void showErrorView(String message);
+    void showRetryViewForFlights();
 
-    void disableErrorView();
+    void hideRetryViewForFlights();
 
-    void displayFlightsSortedByFare();
+    void showErrorViewForFlights(String message);
 
-    void displayFlightsSortedByTakeOffTime();
+    void disableErrorViewForFlights();
 
-    void displayFlightsSortedByFare();
+    void displayFlights(FlightsModel flightsModel);
+
+    void highlightFareSortText();
+
+    void highlightLandingSortText();
+
+    void highlightTakeOffTimeSortText();
+
+    void removeHighlightFareSortText();
+
+    void removeHighlightLandingSortText();
+
+    void removeHighlightTakeOffTimeSortText();
+
+    void showBookingProviders(FlightModel flightModel);
+
+    void setActionBar();
+
+     Context context();
 
 }

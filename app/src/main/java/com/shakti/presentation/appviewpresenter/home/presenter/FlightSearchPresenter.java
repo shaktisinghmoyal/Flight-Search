@@ -1,269 +1,109 @@
-package com.talentica.presentation.leadCapturePage.home.presenter;
+package com.shakti.presentation.appviewpresenter.home.presenter;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.talentica.R;
-import com.talentica.domain.exception.DefaultErrorBundle;
-import com.talentica.domain.exception.ErrorBundle;
-import com.talentica.domain.model.Book;
-import com.talentica.domain.usecases.BaseUseCase;
-import com.talentica.domain.usecases.DefaultSubscriber;
-import com.talentica.presentation.exception.ErrorMessageFactory;
-import com.talentica.presentation.internal.di.PerActivity;
-import com.talentica.presentation.leadCapturePage.base.presenter.Presenter;
-import com.talentica.presentation.leadCapturePage.home.model.BookModel;
-import com.talentica.presentation.leadCapturePage.home.view.HomeView;
-import com.talentica.presentation.mapper.DataMapper;
+import com.shakti.domain.interactor.BaseUseCase;
+import com.shakti.domain.interactor.DefaultSubscriber;
+import com.shakti.domain.model.Flights;
+import com.shakti.presentation.appviewpresenter.base.presenter.Presenter;
+import com.shakti.presentation.appviewpresenter.home.model.FlightModel;
+import com.shakti.presentation.appviewpresenter.home.model.FlightsModel;
+import com.shakti.domain.exception.DefaultErrorBundle;
+import com.shakti.domain.exception.ErrorBundle;
 
-import java.util.Collection;
-import java.util.List;
+import com.shakti.presentation.appviewpresenter.home.view.FlightSearchView;
+import com.shakti.presentation.exception.ErrorMessageFactory;
+import com.shakti.presentation.di.PerActivity;
+import com.shakti.presentation.mapper.DataMapper;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @PerActivity
-public class FlightSearchPresenter implements IHomePagePresenter, Presenter {
+public class FlightSearchPresenter implements IFlightSearchPresenter, Presenter {
 
     private final String Tag = "FlightSearchPresenter";
-    private final BaseUseCase getRecentlyAddedBookListUseCase;
-    private final BaseUseCase getMostReadBookListUseCase;
-    private final DataMapper bookModelDataMapper;
-    private final int RECENT_ADDED_ON_SWIPE = 3;
-    private final int MOST_READ_ON_SWIPE = 4;
-    private final int RECENT_ADDED_BOOKS_QUERY = 1;
-    private final int MOST_READ_BOOK_QUERY = 2;
-    private final int BOTH_BOOK_QUERY = 0;
-    private HomeView homeView;
+    private final BaseUseCase getFlights;
+    private final DataMapper dataMapper;
+    private FlightSearchView flightSearchView;
+    private FlightsModel flightsModel;
+    private FlightsModel flightsModelSortedByFare;
+    private FlightsModel flightsModelSortedByTakeOffTime;
+    private FlightsModel flightsModelSortedByLandingTime;
 
     @Inject
-    public FlightSearchPresenter(@Named("recentlyAddedBookList") BaseUseCase getRecentlyAddedBookListUseCase, @Named("mostReadBookList") BaseUseCase getMostReadBookListUseCase, DataMapper bookModelDataMapper) {
-        Log.e(Tag, "getRecentlyAddedBookListUseCase");
-        this.getRecentlyAddedBookListUseCase = getRecentlyAddedBookListUseCase;
-        this.getMostReadBookListUseCase = getMostReadBookListUseCase;
-        this.bookModelDataMapper = bookModelDataMapper;
+    public FlightSearchPresenter(@Named("getFlights") BaseUseCase getFlights, DataMapper dataMapper) {
+        this.getFlights = getFlights;
+        this.dataMapper = dataMapper;
 
     }
 
-    public void setView(@NonNull HomeView view) {
-        homeView = view;
+    public void setView(@NonNull FlightSearchView flightSearchView) {
+        this.flightSearchView = flightSearchView;
 
     }
 
     /**
-     * Initializes the presenter by start retrieving the book list.
+     * Initializes the presenter by start retrieving the FlightsEntity list.
      */
     public void initialize() {
         setActionBar();
-        hideViewRetry(BOTH_BOOK_QUERY);
-        showViewLoading(BOTH_BOOK_QUERY);
-        homeView.setBottomBarIconForHome();
-        loadRecentlyAddedBooks();
-        loadMostReadBooks();
+        fetchData();
     }
 
-    /**
-     * Loads all users.
-     */
-    public void loadNextBooksList(int queryType) {
-        Log.e(Tag, "loadNextBooksList " + queryType);
-        hideViewRetry(queryType);
-        getNextBookList(queryType);
+
+    public void tryAgain() {
+        fetchData();
     }
 
-    public void tryAgain(int queryType) {
-        Log.e(Tag, "tryAgain " + queryType);
-        hideViewRetry(queryType);
-        if (queryType == 1) {
-            loadRecentlyAddedBooks();
-        } else {
-            loadMostReadBooks();
-        }
+    public void  fetchData(){
+        hideViewRetry();
+        showViewLoading();
+        getFlights();
     }
+
     private void setActionBar() {
-        homeView.setActionSearchBar();
+        flightSearchView.setActionBar();
     }
 
-    private void showViewLoading(int queryType) {
-        Log.e(Tag, "showViewLoading " + queryType);
-        if (queryType == 1) {
-            showViewLoading1();
-        } else if (queryType == 2) {
-            showViewLoading2();
-        } else {
-            showViewLoading1();
-            showViewLoading2();
-        }
+    private void showViewLoading() {
+        flightSearchView.showLoadingViewForFlights();
 
     }
 
-    private void showViewLoading1() {
-        homeView.showLoadingRecycler1();
-    }
-
-    private void showViewLoading2() {
-        homeView.showLoadingRecycler2();
+    private void hideViewLoading() {
+        flightSearchView.hideLoadingViewForFlights();
     }
 
 
-    private void hideViewLoading(int queryType) {
-        Log.e(Tag, "hideViewLoading " + queryType);
-        if (queryType == 1) {
-            hideViewLoading1();
-        } else if (queryType == 2) {
-            hideViewLoading2();
-        } else {
-            hideViewLoading1();
-            hideViewLoading2();
-        }
+    private void hideViewRetry() {
+        flightSearchView.hideRetryViewForFlights();
     }
 
-    private void hideViewLoading1() {
-        homeView.hideLoadingRecycler1();
+    private void showViewRetry() {
+        flightSearchView.showRetryViewForFlights();
     }
 
-    private void hideViewLoading2() {
-        homeView.hideLoadingRecycler2();
+    private void showMainLayout() {
+        flightSearchView.showMainLayout();
     }
 
-
-    private void showViewRetry(int queryType) {
-        Log.e(Tag, "showViewRetry " + queryType);
-        if (queryType == 0) {
-            showViewRetry1();
-            showViewRetry2();
-
-        } else if (queryType == 1) {
-            showViewRetry1();
-        } else if (queryType == 2) {
-            showViewRetry2();
-        }
+    private void highMainLayout() {
+        flightSearchView.hideMainLayout();
     }
 
-    private void showViewRetry1() {
-        homeView.showRetryRecycler1();
-    }
-
-    private void showViewRetry2() {
-        homeView.showRetryRecycler2();
-    }
-
-
-    private void hideViewRetry(int queryType) {
-        Log.e(Tag, "hideViewRetry " + queryType);
-        if (queryType == 1) {
-            hideViewRetry1();
-        } else if (queryType == 2) {
-            hideViewRetry2();
-        } else {
-            hideViewRetry1();
-            hideViewRetry2();
-        }
-    }
-
-    private void hideViewRetry1() {
-        homeView.hideRetryRecycler1();
-    }
-
-    private void hideViewRetry2() {
-        homeView.hideRetryRecycler2();
-    }
-
-    private void getNextBookList(int typeOfBooks) {
-        Log.e(Tag, "getNextBookList " + typeOfBooks);
-        if (typeOfBooks == RECENT_ADDED_BOOKS_QUERY) {
-            loadNextRecentlyAddedBooksOnSwipe();
-        } else if (typeOfBooks == MOST_READ_BOOK_QUERY) {
-            loadNextMostReadBooksOnSwipe();
-        }
-
-    }
-
-    private void showErrorMessage(ErrorBundle errorBundle, int queryType) {
-        Log.e(Tag, "showErrorMessage " + queryType);
-        if (queryType == 0) {
-            showErrorMessage1(errorBundle);
-            showErrorMessage2(errorBundle);
-
-        } else if (queryType == 1) {
-            showErrorMessage1(errorBundle);
-        } else if (queryType == 2) {
-            showErrorMessage2(errorBundle);
-        }
-    }
-
-
-    private void showErrorMessage1(ErrorBundle errorBundle) {
-        String errorMessage = ErrorMessageFactory.create(homeView.context(),
+    private void showErrorMessage(ErrorBundle errorBundle) {
+        String errorMessage = ErrorMessageFactory.create(flightSearchView.context(),
                 errorBundle.getException());
-        this.homeView.showErrorRecycler1(errorMessage);
+        this.flightSearchView.showErrorViewForFlights(errorMessage);
     }
 
-    private void showErrorMessage2(ErrorBundle errorBundle) {
-        String errorMessage = ErrorMessageFactory.create(homeView.context(),
-                errorBundle.getException());
-        this.homeView.showErrorRecycler2(errorMessage);
+
+    private void showFlights(FlightsModel flightsModel) {
+        flightSearchView.displayFlights(flightsModel);
     }
 
-    private void showBooksCollectionInView(Collection<Book> usersCollection, int queryNo) {
-        Log.e(Tag, "showBooksCollectionInView " + queryNo);
-        final Collection<BookModel> bookModelsCollection =
-                this.bookModelDataMapper.transform(usersCollection);
-        if (queryNo == 1 || queryNo == 3) {
-            homeView.displayRecentlyAddedBooks(bookModelsCollection);
-        } else {
-            homeView.displayMostReadBooks(bookModelsCollection);
-        }
-
-    }
-
-    @Override
-    public void loadRecentlyAddedBooks() {
-        Log.e(Tag, "loadRecentlyAddedBooks ");
-        getRecentlyAddedBookListUseCase.execute(new BookListSubscriber(RECENT_ADDED_BOOKS_QUERY));
-
-    }
-
-    @Override
-    public void loadMostReadBooks() {
-        Log.e(Tag, "loadMostReadBooks ");
-        getMostReadBookListUseCase.execute(new BookListSubscriber(MOST_READ_BOOK_QUERY));
-
-    }
-
-    @Override
-    public void loadNextRecentlyAddedBooksOnSwipe() {
-        Log.e(Tag, "loadNextRecentlyAddedBooksOnSwipe ");
-        getRecentlyAddedBookListUseCase.execute(new BookListSubscriber(RECENT_ADDED_ON_SWIPE));
-
-    }
-
-    @Override
-    public void loadNextMostReadBooksOnSwipe() {
-        Log.e(Tag, "loadNextMostReadBooksOnSwipe ");
-        getMostReadBookListUseCase.execute(new BookListSubscriber(MOST_READ_ON_SWIPE));
-
-    }
-
-    @Override
-    public void onSearch(String string) {
-
-    }
-
-    @Override
-    public void onBookClick(BookModel bookModel) {
-        homeView.viewBook(bookModel);
-    }
-
-    @Override
-    public void recentlyAddedViewAllClicked() {
-        homeView.moveToBooksGridView(R.string.recently_added_text);
-    }
-
-    @Override
-    public void mostReadViewAllClicked() {
-        homeView.moveToBooksGridView(R.string.most_read_text);
-    }
 
     @Override
     public void resume() {
@@ -277,35 +117,76 @@ public class FlightSearchPresenter implements IHomePagePresenter, Presenter {
 
     @Override
     public void destroy() {
-        getRecentlyAddedBookListUseCase.unsubscribe();
-        getMostReadBookListUseCase.unsubscribe();
-        this.homeView = null;
+        getFlights.unsubscribe();
+        this.flightSearchView = null;
     }
 
-    private final class BookListSubscriber extends DefaultSubscriber<List<Book>> {
-        int queryNo;
+    @Override
+    public void getFlights() {
+        getFlights.execute(new FlightListSubscriber());
+    }
 
-        public BookListSubscriber(int queryNo) {
-            this.queryNo = queryNo;
-        }
+    @Override
+    public void onSortByFareClicked() {
+        flightSearchView.highlightFareSortText();
+        flightSearchView.removeHighlightLandingSortText();
+        flightSearchView.removeHighlightTakeOffTimeSortText();
+        flightSearchView.displayFlights(flightsModelSortedByFare);
+    }
+
+    @Override
+    public void onSortByTakeOffTimeClicked() {
+        flightSearchView.highlightTakeOffTimeSortText();
+        flightSearchView.removeHighlightLandingSortText();
+        flightSearchView.removeHighlightFareSortText();
+        flightSearchView.displayFlights(flightsModelSortedByTakeOffTime);
+    }
+
+    @Override
+    public void onSortByLandingTimeClicked() {
+        flightSearchView.removeHighlightFareSortText();
+        flightSearchView.highlightLandingSortText();
+        flightSearchView.removeHighlightTakeOffTimeSortText();
+        flightSearchView.displayFlights(flightsModelSortedByLandingTime);
+    }
+
+    @Override
+    public void onFlightClicked(FlightModel flightModel) {
+
+        flightSearchView.showBookingProviders( flightModel);
+
+    }
+
+    private FlightsModel shortFlights(FlightsModel flightsModel) {
+
+        return flightsModel;
+    }
+
+    private final class FlightListSubscriber extends DefaultSubscriber<Flights> {
+
+
         @Override
         public void onCompleted() {
-            hideViewLoading(queryNo);
+            hideViewLoading();
         }
 
         @Override
         public void onError(Throwable e) {
-            Log.e(Tag, "onError " + queryNo);
-            hideViewLoading(queryNo);
-            showErrorMessage(new DefaultErrorBundle((Exception) e), queryNo);
-            showViewRetry(queryNo);
+            showErrorMessage(new DefaultErrorBundle((Exception) e));
+            hideViewLoading();
+            showViewRetry();
         }
 
         @Override
-        public void onNext(List<Book> books) {
-            Log.e(Tag, "onNext " + queryNo);
-            hideViewLoading(queryNo);
-            showBooksCollectionInView(books, queryNo);
+        public void onNext(Flights flights) {
+            flightsModel = dataMapper.transform(flights);
+            flightsModelSortedByFare = shortFlights(flightsModel);
+            flightsModelSortedByTakeOffTime = shortFlights(flightsModel);
+            flightsModelSortedByLandingTime = shortFlights(flightsModel);
+            showFlights(flightsModelSortedByFare);
+            hideViewLoading();
+            showMainLayout();
+            flightSearchView.highlightFareSortText();
         }
     }
 }
